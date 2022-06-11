@@ -16,8 +16,8 @@ func main() {
 
 	//Serve static files
 	fs := http.FileServer(http.Dir("assets"))
-	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	
 	mux.HandleFunc("/", indexHandler)
+	mux.Handle("/assets/", http.StripPrefix("/assets/", fs))
 	http.ListenAndServe(":8000", mux)
 }
