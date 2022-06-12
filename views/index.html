@@ -1,0 +1,85 @@
+{{ define "content"}}
+<section class="container mt-6 column is-11">
+  <div class="level">
+    <div class="level-left">
+      <div class="level-item">
+        <p class="title is-2">Inventories</p>
+      </div>
+    </div>
+    <div class="level-right">
+      <div class="level-item">
+        <a href="/inventory/new" class="button is-medium is-primary is-light">
+          Create Inventory
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="card-content">
+      <table class="table is-striped">
+        <thead>
+          <tr>
+            <th><abbr title="Position">ID</abbr></th>
+            <th>Name</th>
+            <th>SKU</th>
+            <th>Description</th>
+            <th>Price($)</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Manufacturer</th>
+            <th>Warehouse</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th>1</th>
+            <td>Inven 101</td>
+            <td>label #1</td>
+            <td>This is a sweet product hehe</td>
+            <td>200</td>
+            <td>Television</td>
+            <td>672</td>
+            <td>Dell</td>
+            <td>Berlin</td>
+            <td>
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>View</strong>
+                </a>
+                <a class="button is-warning">
+                  <strong>Edit</strong>
+                </a>
+                <a class="button is-danger"> Delete </a>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <th>2</th>
+            <td>Inven 101</td>
+            <td>label #1</td>
+            <td>This is a sweet product hehe</td>
+            <td>200</td>
+            <td>Television</td>
+            <td>672</td>
+            <td>Dell</td>
+            <td>Berlin</td>
+            <td>
+              <div class="buttons">
+                <a class="button is-primary">
+                  <strong>View</strong>
+                </a>
+                <a class="button is-warning">
+                  <strong>Edit</strong>
+                </a>
+                <a class="button is-danger"> Delete </a>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+{{ end }}

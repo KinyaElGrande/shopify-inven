@@ -1,0 +1,66 @@
+{{ define "content"}}
+<section class="container mt-6 column is-5">
+  <div class="field">
+    <label class="label">Name</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="Inventory name" />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Price ($)</label>
+    <div class="control">
+      <input class="input" type="number" placeholder="Inventory price in $" />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Category</label>
+    <div class="control">
+      <div class="select">
+        <select>
+          <option>Select dropdown</option>
+          <option>With options</option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Quantity</label>
+    <div class="control">
+      <input class="input" type="number" placeholder="Inventory Quantity" />
+    </div>
+  </div>
+  <div class="field">
+    <label class="label">Manufacturer</label>
+    <div class="control">
+      <input class="input" type="text" placeholder="Inventory name" />
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Description</label>
+    <div class="control">
+      <textarea class="textarea" placeholder="Description"></textarea>
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Warehouse</label>
+    <div class="control">
+      <div class="select">
+        <select>
+          <option>Berlin</option>
+          <option>London</option>
+          <option>Dublin</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="field is-grouped">
+    <div class="control">
+      <button class="button is-link">Create Inventory</button>
+    </div>
+  </div>
+</section>
+
+{{ end }}
