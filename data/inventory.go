@@ -38,6 +38,26 @@ func (inven *FullInventory) UpdatedAtDate() string {
 	return inven.UpdatedAt.Format("Jan 2, 2006 at 3:04pm")
 }
 
+func GetInventory(id int)(inventory FullInventory, err error) {
+	db := dbConn()
+	defer db.Close()
+
+	row, err := db.Query("SELECT * FROM inventories WHERE id=?", id)
+    if err != nil {
+        panic(err.Error())
+    }
+
+	for row.Next(){
+		if err = row.Scan(&inventory.ID,&inventory.Name, &inventory.SKU,&inventory.Category,&inventory.Price,
+			&inventory.Quantity, &inventory.Manufacturer, &inventory.Description, &inventory.WarehouseID,
+			&inventory.CreatedAt, &inventory.UpdatedAt);err != nil {
+				log.Printf("Error %s when querying inventories", err)
+			}
+	}
+
+	return inventory, nil
+}
+
 func ListInventories()(inventories []FullInventory, err error) {
 	db := dbConn()
 	defer db.Close()
