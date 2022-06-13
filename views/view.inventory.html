@@ -2,12 +2,44 @@
 <section class="container mt-6 column is-5">
   <div class="card">
     <header class="card-header">
-      <p class="card-header-title">Inventory</p>
+      <p class="card-header-title">{{ .Name}} Inventory</p>
     </header>
     <div class="card-content">
       <div class="field">
-        <label class="label">Price ($)</label>
-        <p class="subtitle is-2">100</p>
+        <label class="label">SKU:</label>
+        <p class="subtitle is-5">{{ .SKU}}</p>
+      </div>
+      <div class="field">
+        <label class="label">Category:</label>
+        <p class="subtitle is-5">{{ .Category}}</p>
+      </div>
+      <div class="field">
+        <label class="label">Price ($):</label>
+        <p class="subtitle is-5">{{ .Price}}</p>
+      </div>
+      <div class="field">
+        <label class="label">Quantity:</label>
+        <p class="subtitle is-5">{{ .Quantity}}</p>
+      </div>
+      <div class="field">
+        <label class="label">Manufacturer:</label>
+        <p class="subtitle is-5">{{ .Manufacturer}}</p>
+      </div>
+      <div class="field">
+        <label class="label">Description:</label>
+        <p class="subtitle is-5">{{ .Description}}</p>
+      </div>
+      <div class="field">
+        <label class="label">Warehouse:</label>
+        <p class="subtitle is-5">{{ .Warehouse}}</p>
+      </div>
+      <div class="field">
+        <label class="label">Created AT:</label>
+        <p class="subtitle is-5">{{ .CreatedAt}}</p>
+      </div>
+      <div class="field">
+        <label class="label">Updated AT:</label>
+        <p class="subtitle is-5">{{ .UpdatedAt}}</p>
       </div>
     </div>
   </div>

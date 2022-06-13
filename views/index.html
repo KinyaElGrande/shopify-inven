@@ -32,50 +32,30 @@
           </tr>
         </thead>
         <tbody>
+          {{ range . }}
           <tr>
-            <th>1</th>
-            <td>Inven 101</td>
-            <td>label #1</td>
-            <td>This is a sweet product hehe</td>
-            <td>200</td>
-            <td>Television</td>
-            <td>672</td>
-            <td>Dell</td>
-            <td>Berlin</td>
+            <th> {{ .ID }}</th>
+            <td>{{ .Name }}</td>
+            <td>{{ .SKU }} </td>
+            <td>{{ .Description }}</td>
+            <td>{{ .Price }}</td>
+            <td>{{ .Category }}</td>
+            <td>{{ .Quantity }}</td>
+            <td>{{ .Manufacturer }}</td>
+            <td>{{ .Warehouse}}</td>
             <td>
               <div class="buttons">
-                <a class="button is-primary">
+                <a href="/inventory/view?id={{ .ID }}"  class="button is-primary">
                   <strong>View</strong>
                 </a>
-                <a class="button is-warning">
+                <a href="/inventory/edit?id={{ .ID }}" class="button is-warning">
                   <strong>Edit</strong>
                 </a>
-                <a class="button is-danger"> Delete </a>
+                <a href="/inventory/delete?id={{ .ID }}" class="button is-danger"> Delete </a>
               </div>
             </td>
           </tr>
-          <tr>
-            <th>2</th>
-            <td>Inven 101</td>
-            <td>label #1</td>
-            <td>This is a sweet product hehe</td>
-            <td>200</td>
-            <td>Television</td>
-            <td>672</td>
-            <td>Dell</td>
-            <td>Berlin</td>
-            <td>
-              <div class="buttons">
-                <a class="button is-primary">
-                  <strong>View</strong>
-                </a>
-                <a class="button is-warning">
-                  <strong>Edit</strong>
-                </a>
-                <a class="button is-danger"> Delete </a>
-              </div>
-            </td>
-          </tr>
+          {{ end }}
         </tbody>
       </table>
     </div>
