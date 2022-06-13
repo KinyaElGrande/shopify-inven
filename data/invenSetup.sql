@@ -3,7 +3,11 @@ DROP TABLE IF EXISTS `inventories`;
 
 CREATE TABLE warehouses (
   id INT AUTO_INCREMENT,
-  location VARCHAR(100),
+  city VARCHAR(100),
+  country VARCHAR(100),
+  code VARCHAR(100),
+  manager VARCHAR(100),
+  description LONGTEXT,
   PRIMARY KEY (id),
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 );
