@@ -26,7 +26,7 @@ type FullInventory struct {
 	Quantity     int
 	Manufacturer string
 	Description  string
-	WarehouseID  int
+	Warehouse    string
 	CreatedAt    time.Time
 	UpdatedAt    time.Time
 }
@@ -42,14 +42,20 @@ func GetInventory(id int) (inventory FullInventory, err error) {
 	db := dbConn()
 	defer db.Close()
 
-	row, err := db.Query("SELECT * FROM inventories WHERE id=?", id)
+	query := `SELECT  inventories.name, inventories.sku, inventories.category, inventories.price, inventories.quantity,
+	inventories.manufacturer, inventories.description, warehouses.city, inventories.created_at, inventories.updated_at
+	FROM inventories 
+	JOIN warehouses ON inventories.warehouse_id = warehouses.id 
+	WHERE inventories.id=?`
+
+	row, err := db.Query(query, id)
 	if err != nil {
 		panic(err.Error())
 	}
 
 	for row.Next() {
-		if err = row.Scan(&inventory.ID, &inventory.Name, &inventory.SKU, &inventory.Category, &inventory.Price,
-			&inventory.Quantity, &inventory.Manufacturer, &inventory.Description, &inventory.WarehouseID,
+		if err = row.Scan(&inventory.Name, &inventory.SKU, &inventory.Category, &inventory.Price,
+			&inventory.Quantity, &inventory.Manufacturer, &inventory.Description, &inventory.Warehouse,
 			&inventory.CreatedAt, &inventory.UpdatedAt); err != nil {
 			log.Printf("Error %s when querying inventories", err)
 		}
@@ -62,13 +68,18 @@ func ListInventories() (inventories []FullInventory, err error) {
 	db := dbConn()
 	defer db.Close()
 
-	rows, _ := db.Query("SELECT * FROM inventories ORDER BY id DESC")
+	query := `SELECT inventories.id, inventories.name, inventories.sku, inventories.category, inventories.price, inventories.quantity,
+	inventories.manufacturer, inventories.description, warehouses.city, inventories.created_at, inventories.updated_at
+	FROM inventories 
+	JOIN warehouses ON inventories.warehouse_id = warehouses.id`
+
+	rows, _ := db.Query(query)
 
 	inventory := FullInventory{}
 
 	for rows.Next() {
 		if err := rows.Scan(&inventory.ID, &inventory.Name, &inventory.SKU, &inventory.Category, &inventory.Price,
-			&inventory.Quantity, &inventory.Manufacturer, &inventory.Description, &inventory.WarehouseID,
+			&inventory.Quantity, &inventory.Manufacturer, &inventory.Description, &inventory.Warehouse,
 			&inventory.CreatedAt, &inventory.UpdatedAt); err != nil {
 			log.Printf("Error %s when querying inventories", err)
 		}
@@ -135,5 +146,27 @@ func UpdateInventory(invID int, inv Inventory) error {
 		return err
 	}
 	log.Printf("%d Inventory updated ", rows)
+	return nil
+}
+
+func DeleteInventory(invID int) error {
+	db := dbConn()
+	defer db.Close()
+
+	query := "DELETE FROM inventories WHERE id=?"
+	ctx, cancelfunc := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancelfunc()
+	stmt, err := db.PrepareContext(ctx, query)
+	if err != nil {
+		log.Printf("Error %s when preparing SQL statement", err)
+		return err
+	}
+	defer stmt.Close()
+
+	_, err = stmt.ExecContext(ctx, invID)
+	if err != nil {
+		log.Printf("Error %s when inserting row into inventories table", err)
+		return err
+	}
 	return nil
 }
