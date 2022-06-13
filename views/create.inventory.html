@@ -1,66 +1,70 @@
 {{ define "content"}}
 <section class="container mt-6 column is-5">
-  <div class="field">
-    <label class="label">Name</label>
-    <div class="control">
-      <input class="input" type="text" placeholder="Inventory name" />
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Price ($)</label>
-    <div class="control">
-      <input class="input" type="number" placeholder="Inventory price in $" />
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Category</label>
-    <div class="control">
-      <div class="select">
-        <select>
-          <option>Select dropdown</option>
-          <option>With options</option>
-        </select>
+  <form action="/inventory/create" method="post">
+    <div class="field">
+      <label class="label">Name</label>
+      <div class="control">
+        <input class="input" type="text" name="name" placeholder="Inventory name" />
       </div>
     </div>
-  </div>
-  <div class="field">
-    <label class="label">Quantity</label>
-    <div class="control">
-      <input class="input" type="number" placeholder="Inventory Quantity" />
-    </div>
-  </div>
-  <div class="field">
-    <label class="label">Manufacturer</label>
-    <div class="control">
-      <input class="input" type="text" placeholder="Inventory name" />
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Description</label>
-    <div class="control">
-      <textarea class="textarea" placeholder="Description"></textarea>
-    </div>
-  </div>
-
-  <div class="field">
-    <label class="label">Warehouse</label>
-    <div class="control">
-      <div class="select">
-        <select>
-          <option>Berlin</option>
-          <option>London</option>
-          <option>Dublin</option>
-        </select>
+    <div class="field">
+      <label class="label">Price ($)</label>
+      <div class="control">
+        <input class="input" type="number" name="price" placeholder="Inventory price in $" />
       </div>
     </div>
-  </div>
-
-  <div class="field is-grouped">
-    <div class="control">
-      <button class="button is-link">Create Inventory</button>
+    <div class="field">
+      <label class="label">Category</label>
+      <div class="control">
+        <div class="select">
+          <select name="category">
+            <option value="television">Television</option>
+            <option value="desktop">Desktop</option>
+            <option value="keyboard">Keyboard</option>
+            <option value="mouse">Mouse</option>
+          </select>
+        </div>
+      </div>
     </div>
-  </div>
+    <div class="field">
+      <label class="label">Quantity</label>
+      <div class="control">
+        <input class="input" type="number" name="quantity" placeholder="Inventory Quantity" />
+      </div>
+    </div>
+    <div class="field">
+      <label class="label">Manufacturer</label>
+      <div class="control">
+        <input class="input" type="text" name="manufacturer" placeholder="Inventory name" />
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Description</label>
+      <div class="control">
+        <textarea class="textarea" name="description" placeholder="Description"></textarea>
+      </div>
+    </div>
+
+    <div class="field">
+      <label class="label">Warehouse</label>
+      <div class="control">
+        <div class="select">
+          <select name="warehouse">
+            {{ range . }}
+            <option value="{{ .ID}}" > {{ .City}}</option>
+            {{ end }}
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link" type="submit">Create Inventory</button>
+      </div>
+    </div>
+  </form>
 </section>
 
 {{ end }}

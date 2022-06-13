@@ -1,29 +1,37 @@
 {{ define "content"}}
 <section class="container mt-6 column is-5">
-  <div class="field">
-    <label class="label">Name</label>
-    <div class="control">
-      <input class="input" type="text" placeholder="Warehouse name" />
+  <form action="/warehouse/create" method="post">
+    <div class="field">
+      <label class="label">City</label>
+      <div class="control">
+        <input class="input" type="text" name="city" placeholder="City" />
+      </div>
     </div>
-  </div>
-  <div class="field">
-    <label class="label">Location</label>
-    <div class="control">
-      <input class="input" type="text" placeholder="Location" />
+    <div class="field">
+      <label class="label">Country</label>
+      <div class="control">
+        <input class="input" type="text" name="country" placeholder="Country" />
+      </div>
     </div>
-  </div>
-  <div class="field">
-    <label class="label">Description</label>
-    <div class="control">
-      <textarea class="textarea" placeholder="Description"></textarea>
+    <div class="field">
+      <label class="label">Manager</label>
+      <div class="control">
+        <input class="input" type="text" name="manager" placeholder="Manager" />
+      </div>
     </div>
-  </div>
+    <div class="field">
+      <label class="label">Description</label>
+      <div class="control">
+        <textarea class="textarea" name="description" placeholder="Description"></textarea>
+      </div>
+    </div>
 
-  <div class="field is-grouped">
-    <div class="control">
-      <button class="button is-link">Create Inventory</button>
+    <div class="field is-grouped">
+      <div class="control">
+        <button class="button is-link" type="submit">Create Inventory</button>
+      </div>
     </div>
-  </div>
+  </form>
 </section>
 
 {{ end }}

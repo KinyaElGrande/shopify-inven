@@ -1,11 +1,14 @@
 {{ define "content"}}
 <section class="container mt-6 column is-5">
-  <div class="panel">
+  <a href="/warehouse/new" class="button is-medium is-link is-light">
+   Add Warehouse
+  </a>
+  <div class="panel mt-4">
     <p class="panel-heading has-text-link">Warehouses</p>
 
-    <a class="panel-block py-2 subtitle is-2"> London </a>
-    <a class="panel-block py-2 subtitle is-2"> Berlin </a>
-    <a class="panel-block py-2 subtitle is-2"> Dublin </a>
+    {{ range . }}
+    <a class="panel-block py-2 subtitle is-2"> {{ .City }} , {{ .Country}}</a>
+    {{ end }}
   </div>
 </section>
 
