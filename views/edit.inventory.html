@@ -1,6 +1,6 @@
 {{ define "content"}}
 <section class="container mt-6 column is-5">
-  <form action="/inventory/update?id={{ .ID }}" method="post">
+  <form action="/inventory/update?id={{ .inventoryID }}" method="post">
     <div class="field">
       <label class="label">Name</label>
       <div class="control">
@@ -9,7 +9,7 @@
           type="text"
           placeholder="Inventory name"
           name="name"
-          value="{{ .Name}}"
+          value="{{ .inventory.Name}}"
         />
       </div>
     </div>
@@ -21,7 +21,7 @@
           type="number"
           placeholder="Inventory price in $"
           name="price"
-          value="{{ .Price}}"
+          value="{{ .inventory.Price}}"
         />
       </div>
     </div>
@@ -46,7 +46,7 @@
           type="number"
           placeholder="Inventory Quantity"
           name="quantity"
-          value="{{ .Quantity}}"
+          value="{{ .inventory.Quantity}}"
         />
       </div>
     </div>
@@ -58,7 +58,7 @@
           type="text"
           placeholder="Inventory name"
           name="manufacturer"
-          value="{{ .Manufacturer }}"
+          value="{{ .inventory.Manufacturer }}"
         />
       </div>
     </div>
@@ -66,12 +66,9 @@
     <div class="field">
       <label class="label">Description</label>
       <div class="control">
-        <textarea
-          class="textarea"
-          placeholder="Description"
-          name="description"
-          value="{{ .Description}}"
-        ></textarea>
+        <textarea class="textarea" placeholder="Description" name="description">
+        {{ .inventory.Description}}</textarea
+        >
       </div>
     </div>
 
@@ -79,10 +76,10 @@
       <label class="label">Warehouse</label>
       <div class="control">
         <div class="select">
-          <select>
-            <option>Berlin</option>
-            <option>London</option>
-            <option>Dublin</option>
+          <select name="warehouse">
+            {{ range .warehouses }}
+            <option value="{{ .ID}}">{{ .City}}</option>
+            {{ end }}
           </select>
         </div>
       </div>
@@ -90,7 +87,7 @@
 
     <div class="field is-grouped">
       <div class="control">
-        <button class="button is-link" type="submit">Create Inventory</button>
+        <button class="button is-link" type="submit">Update Inventory</button>
       </div>
     </div>
   </form>

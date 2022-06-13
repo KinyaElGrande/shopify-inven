@@ -6,6 +6,7 @@ import (
 	"mumbi/inven-logistics/templates"
 	"net/http"
 	"strconv"
+	"strings"
 )
 
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
@@ -61,7 +62,17 @@ func EditInventory(w http.ResponseWriter, r *http.Request) {
 	id, _ := strconv.Atoi(vals.Get("id"))
 
 	inventory, _ := data.GetInventory(id)
-	templates.GenerateHTML(w, &inventory, "layout", "navbar", "edit.inventory")
+	warehouses, _ := data.ListWareHouses()
+
+	type data map[string]interface{}
+
+	resp := data{
+		"inventoryID": id,
+		"inventory":   inventory,
+		"warehouses":  warehouses,
+	}
+
+	templates.GenerateHTML(w, &resp, "layout", "navbar", "edit.inventory")
 }
 
 func UpdateInventory(w http.ResponseWriter, r *http.Request) {
@@ -80,10 +91,11 @@ func UpdateInventory(w http.ResponseWriter, r *http.Request) {
 	manufacturer := r.PostFormValue("manufacturer")
 	description := r.PostFormValue("description")
 	warehouseId, _ := strconv.Atoi(r.PostFormValue("warehouse"))
+	sku := strings.ToUpper(name[0:2] + manufacturer[0:2])
 
 	inventory := data.Inventory{
 		Name:         name,
-		SKU:          name + manufacturer,
+		SKU:          sku,
 		Price:        price,
 		Category:     category,
 		Quantity:     quantity,
@@ -91,6 +103,7 @@ func UpdateInventory(w http.ResponseWriter, r *http.Request) {
 		Description:  description,
 		WarehouseID:  warehouseId,
 	}
+	fmt.Println(id, inventory)
 
 	_ = data.UpdateInventory(id, inventory)
 	http.Redirect(w, r, "/", 302)
