@@ -12,7 +12,7 @@ func dbConn() (db *sql.DB) {
 	dbUser := config.GoDotEnvVariable("DB_USER")
 	dbPass := config.GoDotEnvVariable("DB_PASS")
 	dbName := config.GoDotEnvVariable("DB_NAME")
-	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName)
+	db, err := sql.Open(dbDriver, dbUser+":"+dbPass+"@/"+dbName+"?parseTime=true")
 	if err != nil {
 		panic(err.Error())
 	}

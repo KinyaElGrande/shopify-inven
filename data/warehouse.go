@@ -14,6 +14,41 @@ type Warehouse struct {
 	Description string
 }
 
+type FullWarehouse struct {
+	ID          int
+	City        string
+	Country     string
+	Code        string
+	Manager     string
+	Description string
+	CreatedAt   time.Time
+}
+
+// format the CreatedAt date 
+func (w *FullWarehouse) CreatedAtDate() string {
+	return w.CreatedAt.Format("Jan 2, 2006 at 3:04pm")
+}
+
+func ListWareHouses() (warehouses []FullWarehouse, err error) {
+	db := dbConn()
+	defer db.Close()
+
+	rows, _ := db.Query("SELECT * FROM warehouses ORDER BY id DESC")
+
+	wareHouse := FullWarehouse{}
+
+	for rows.Next() {
+		if err := rows.Scan(&wareHouse.ID, &wareHouse.City, &wareHouse.Country, &wareHouse.Code,
+			&wareHouse.Manager, &wareHouse.Description, &wareHouse.CreatedAt); err != nil {
+			log.Printf("Error %s when querying warehouses", err)
+		}
+
+		warehouses = append(warehouses, wareHouse)
+	}
+
+	return warehouses, nil
+}
+
 func CreateWarehouse(house Warehouse) error {
 	db := dbConn()
 	defer db.Close()

@@ -17,6 +17,49 @@ type Inventory struct {
 	WarehouseID int
 }
 
+type FullInventory struct {
+	ID int
+	Name string
+	SKU string
+	Category string
+	Price int
+	Quantity int
+	Manufacturer string
+	Description string
+	WarehouseID int
+	CreatedAt   time.Time
+	UpdatedAt  time.Time
+}
+
+func (inven *FullInventory) CreatedAtDate() string {
+	return inven.CreatedAt.Format("Jan 2, 2006 at 3:04pm")
+}
+func (inven *FullInventory) UpdatedAtDate() string {
+	return inven.UpdatedAt.Format("Jan 2, 2006 at 3:04pm")
+}
+
+func ListInventories()(inventories []FullInventory, err error) {
+	db := dbConn()
+	defer db.Close()
+
+	rows, _ := db.Query("SELECT * FROM inventories ORDER BY id DESC")
+
+	inventory := FullInventory{}
+
+	for rows.Next() {
+		if err := rows.Scan(&inventory.ID,&inventory.Name, &inventory.SKU,&inventory.Category,&inventory.Price,
+			&inventory.Quantity, &inventory.Manufacturer, &inventory.Description, &inventory.WarehouseID,
+			&inventory.CreatedAt, &inventory.UpdatedAt); err != nil {
+			log.Printf("Error %s when querying inventories", err)
+		}
+
+		inventories = append(inventories, inventory)
+	}
+
+	return inventories, nil
+
+}
+
 func CreateInventory(inv Inventory) error {
 	db := dbConn()
 	defer db.Close()
